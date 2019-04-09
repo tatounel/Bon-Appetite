@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Geolocation</title>
+    <link rel="stylesheet" href="restaurants.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 400px;  /* The height is 400 pixels */
+        width: 50%;  /* The width is the width of the web page */
+      }
+
+    </style>
+  </head>
+  <body>
+
+    <div class="tab">
+      <button class="tablinks" onclick="location.href='main.html'">Home</button>
+      <button class="tablinks" onclick="location.href='addNew.html'">Add New</button>
+      <button class="tablinks" onclick="location.href='recipes.html'">Recipes</button>
+      <button class="tablinks" onclick="location.href='restaurants.html'">Restaurants</button>
+    </div>
+
+    <div class="words">
+      <center><h3>Countries With Best Food</h3></center>
+      <ul class="a">
+        <li>Italy</li>
+        <li>France</li>
+        <li>Mexico</li>
+        <li>Spain</li>
+        <li>India</li>
+      </ul>
+    </div>
+
+    <div >
+      <center><h3>Best Restaurants Worldwide</h3></center>
+    <table class="center"id="customers">
+      <tr>
+        <th>Restaurants</th>
+        <th>Country</th>
+      </tr>
+      <tr>
+        <td>Osteria Francescana</td>
+        <td>Italy</td>
+      </tr>
+      <tr>
+        <td>El Celler de Can Roca</td>
+        <td>Spain</td>
+      </tr>
+      <tr>
+        <td>Mirazur</td>
+        <td>France</td>
+      </tr>
+      <tr>
+        <td>Eleven Madison Park</td>
+        <td>USA</td>
+      </tr>
+      <tr>
+        <td>Gaggan</td>
+        <td>Thailand</td>
+      </tr>
+
+    </table>
+    </div>
+    <div class="words">
+      <center><p>Don't have the time/energy/will to make it on your own?</p></center>
+      <center><p>Find nearby restaurants that have what you want.</p></center>
+    </div>
+
+    <form class="example" style="margin:auto;max-width:300px">
+      <input type="text" placeholder="Search.." name="search2">
+      <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+
+    <center><div id="map"></div></center>
+    <script>
+      // Note: This example requires that you consent to location sharing when
+      // prompted by your browser. If you see the error "The Geolocation service
+      // failed.", it means you probably did not give permission for the browser to
+      // locate you.
+      var map, infoWindow;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -34.397, lng: 150.644},
+          zoom: 17
+        });
+        infoWindow = new google.maps.InfoWindow;
+
+        // Try HTML5 geolocation.
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('Location found.');
+            infoWindow.open(map);
+            map.setCenter(pos);
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+      }
+
+      function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(browserHasGeolocation ?
+                              'Error: The Geolocation service failed.' :
+                              'Error: Your browser doesn\'t support geolocation.');
+        infoWindow.open(map);
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2CsQjqns4bjnNksuXsfi3980T4bT2cIk&callback=initMap">
+    </script>
+  </body>
+</html>
